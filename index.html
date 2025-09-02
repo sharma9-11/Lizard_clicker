@@ -1,0 +1,148 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sajal's Lizard Clicker</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --button-bg: #2e2e2e;
+            --text-color: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+        .counters {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center; 
+            font-size: 1.1rem;
+        }
+
+        .counter-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 8px 16px;
+            border-radius: 12px;
+        }
+        
+        .counter-box span {
+            font-weight: bold;
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 4px;
+        }
+        #lizard-btn {
+            background-color: var(--button-bg);
+            border: none;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; 
+            font-size: 5rem; 
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s ease;
+            user-select: none;
+            z-index: 10;
+        }
+
+        #lizard-btn:active {
+            transform: scale(0.95);
+        }
+        .falling-lizard {
+            position: absolute;
+            top: -50px; 
+            font-size: 2rem;
+            pointer-events: none; 
+            animation: fallAndFade 3s linear forwards;
+        }
+        
+        @keyframes fallAndFade {
+            to {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="counters">
+        <div class="counter-box">
+            My Clicks
+            <span id="my-clicks">0</span>
+        </div>
+    </div>
+
+    <main id="game-area">
+        <button id="lizard-btn">🦎</button>
+    </main>
+
+    <audio id="lizard-sound" src="lizard-made-with-Voicemod.mp3" preload="auto"></audio>
+
+    <script>
+        const lizardButton = document.getElementById('lizard-btn');
+        const myClicksSpan = document.getElementById('my-clicks');
+        const gameArea = document.getElementById('game-area');
+        const lizardSound = document.getElementById('lizard-sound');
+        
+        
+        let myClicks = 0;
+
+       
+        lizardButton.addEventListener('click', () => {
+           
+            myClicks++;
+            myClicksSpan.textContent = myClicks.toLocaleString();
+            
+          
+            if (lizardSound.src) {
+                lizardSound.currentTime = 0;
+                lizardSound.play().catch(error => {
+                    console.log("Audio playback failed. Ensure the src path is correct and the browser allows playback.", error);
+                });
+            }
+            createLizardBurst();
+        });
+        function createLizardBurst() {
+            const lizardCount = Math.floor(Math.random() * 5) + 5;
+
+            for (let i = 0; i < lizardCount; i++) {
+                const lizard = document.createElement('span');
+                lizard.textContent = '🦎';
+                lizard.classList.add('falling-lizard');
+
+              
+                lizard.style.left = `${Math.random() * 100}vw`;
+
+                lizard.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                
+                lizard.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
+
+                document.body.appendChild(lizard);
+
+                lizard.addEventListener('animationend', () => {
+                    lizard.remove();
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
