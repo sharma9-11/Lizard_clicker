@@ -67,15 +67,15 @@
         }
         .falling-lizard {
             position: absolute;
-            top: -50px; /* Start off-screen */
+            top: -50px; 
             font-size: 2rem;
-            pointer-events: none; /* Lizards can't be clicked */
+            pointer-events: none; 
             animation: fallAndFade 3s linear forwards;
         }
         
         @keyframes fallAndFade {
             to {
-                transform: translateY(110vh); /* Fall to the bottom of the viewport */
+                transform: translateY(110vh);
                 opacity: 0;
             }
         }
@@ -94,7 +94,7 @@
         <button id="lizard-btn">🦎</button>
     </main>
 
-    <audio id="lizard-sound" src="https://drive.google.com/uc?export=download&id=1kRjxr0F_NIQ0p77ZX_7USAo1VlIxtGFI" preload="auto"></audio>
+    <audio id="lizard-sound" src="lizard-made-with-Voicemod.mp3" preload="auto"></audio>
 
     <script>
         const lizardButton = document.getElementById('lizard-btn');
@@ -131,7 +131,7 @@
               
                 lizard.style.left = `${Math.random() * 100}vw`;
 
-                lizard.style.animationDuration = `${Math.random() * 2 + 2}s`; // 2s to 4s
+                lizard.style.animationDuration = `${Math.random() * 2 + 2}s`;
                 
                 lizard.style.transform = `rotate(${Math.random() * 60 - 30}deg)`;
 
@@ -144,4 +144,5 @@
         }
     </script>
 </body>
+
 </html>
